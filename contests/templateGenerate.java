@@ -2,6 +2,9 @@ import java.io.*;
 import java.util.*;
 
 public class templateGenerate {
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
 
     public static String getTemplateString(String problem) {
         String output = "import java.io.*;\nimport java.util.*;\n\n";
@@ -19,6 +22,8 @@ public class templateGenerate {
         String output = "all: run\n";
         output += "\nrun:\n";
         output += "\tjavac " + problem + ".java; java " + problem;
+        output += "\nstd:\n";
+        output += "\tjavac " + problem + ".java; java " + problem + " < " + problem + ".in";
         output += "\ntest:\n"; 
         output += "\tjava -cp ../ tester " + problem;
         return output;
@@ -39,23 +44,23 @@ public class templateGenerate {
         //Creating the directory
         boolean bool = folder.mkdir();
         if(bool){
-            System.out.println("Directory created successfully");
+            System.out.println(ANSI_GREEN + "Directory created successfully" + ANSI_RESET);
         }else{
-            System.out.println("Sorry couldn’t create specified directory");
+            System.out.println(ANSI_RED + "Sorry couldn’t create specified directory"+ ANSI_RESET);
         }
 
         boolean bool2 = in.createNewFile();
         if(bool2){
-            System.out.println("Java File created successfully");
+            System.out.println(ANSI_GREEN +"Java File created successfully"+ ANSI_RESET);
         }else{
-            System.out.println("Sorry couldn’t create specified file");
+            System.out.println(ANSI_RED + "Sorry couldn’t create specified file"+ ANSI_RESET);
         }
         
         boolean bool3 = make.createNewFile();
         if(bool3){
-            System.out.println("Makefile created successfully");
+            System.out.println(ANSI_GREEN +"Makefile created successfully"+ ANSI_RESET);
         }else{
-            System.out.println("Sorry couldn’t create makefile");
+            System.out.println(ANSI_RED + "Sorry couldn’t create makefile"+ ANSI_RESET);
         }
 
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(folder + "/" + path + ".java")));
